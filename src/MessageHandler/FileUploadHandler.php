@@ -38,9 +38,9 @@ class FileUploadHandler implements MessageHandlerInterface
         );
 
         if($response['status']==200){
-            $this->sendUploadNotificationCommand->run($input = new ArrayInput([]), new BufferedOutput());
+            $this->sendUploadNotificationCommand->run($input = new ArrayInput(["successFile"=>$fileName]), new BufferedOutput());
         }else{
-            $this->sendUploadNotificationCommand->run($input = new ArrayInput([]), new BufferedOutput());
+            $this->sendUploadNotificationCommand->run($input = new ArrayInput(["failedFile"=>$fileName]), new BufferedOutput());
         }
 
         if ($response['status'] === 200) {

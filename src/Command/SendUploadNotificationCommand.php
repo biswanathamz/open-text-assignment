@@ -21,28 +21,46 @@ class SendUploadNotificationCommand extends Command
     protected NotificationService $notificationService;
     protected string $subject;
     protected string $message;
+    protected string $successUploadMessage;
+    protected string $failedUploadMessage;
 
     public function __construct(NotificationService $notificationService)
     {
         $this->notificationService = $notificationService;
         $this->subject = "Backend-Home-Task (Check Dependency) : Notification";
         $this->message = "File Upload : Inprogress";
+        $this->successUploadMessage = "File uploaded successfully ! File Name : ";
+        $this->failedUploadMessage = "File uploaded failed ! File Name : ";
 
         parent::__construct(); 
     }
 
     protected function configure(): void
     {
-        // No params , if needed will be added here
+        $this
+        ->addArgument('successFile', InputArgument::OPTIONAL, 'Your name')
+        ->addArgument('failedFile', InputArgument::OPTIONAL, 'Your name');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->notificationService->sendEmail($this->subject, $this->message);
+        $successFile = $input->getArgument('successFile');
+        $failedFile = $input->getArgument('failedFile');
+        $message = "";
+        
+        if($successFile){
+            $message = $this->successUploadMessage.$successFile;
+        }elseif($failedFile){
+            $message = $this->failedUploadMessage.$failedFile;
+        }else{
+            $message = $this->message;
+        }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $this->notificationService->sendEmail($this->subject, $message);
+
+        // $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         return Command::SUCCESS;
     }
