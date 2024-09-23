@@ -81,7 +81,7 @@ class DependencyController extends AbstractController
             }
         }
         
-        $this->sendUploadNotificationCommand->run($input = new ArrayInput([]), new BufferedOutput());
+        // $this->sendUploadNotificationCommand->run($input = new ArrayInput([]), new BufferedOutput());
 
         return $this->json([
             'message' => 'File Recieved! You will be notified shortly over the email and slack',

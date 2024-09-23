@@ -7,8 +7,10 @@ use App\Message\FileUploadMessage;
 use App\Service\DebrickedApiService;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
+#[AsMessageHandler()]
 class FileUploadHandler implements MessageHandlerInterface
 {
     private $debrickedApiService;

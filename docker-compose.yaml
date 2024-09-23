@@ -44,11 +44,12 @@ services:
             - backend
 
     rabbitmq:
-        image: rabbitmq:3.9-management-alpine
+        image: rabbitmq:3-management
         environment:
             RABBITMQ_ERLANG_COOKIE: rabbitmqcookie
             RABBITMQ_DEFAULT_USER: rabbit
             RABBITMQ_DEFAULT_PASS: docker
+            RABBITMQ_DEFAULT_VHOST: /
         volumes:
             - rabbitmqetc:/etc/rabbitmq/
             - rabbitmqdata:/var/lib/rabbitmq/
@@ -59,6 +60,8 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
+            - "5671:5672"
+            - "15671:15672"
 
     php:
         image: ghcr.io/debricked/docker-image-php-xdebug:latest
