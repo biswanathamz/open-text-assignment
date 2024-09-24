@@ -12,18 +12,37 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+/**
+ * Class DependencyController
+ * 
+ * This controller handles the file upload for dependency management.
+ * It validates the uploaded files and dispatches messages for further processing.
+ */
 class DependencyController extends AbstractController
 {
     private SendUploadNotificationCommand $sendUploadNotificationCommand;
     private $messageBus;
 
 
+    /**
+     * DependencyController constructor.
+     *
+     * @param SendUploadNotificationCommand $sendUploadNotificationCommand Command to send upload notifications.
+     * @param MessageBusInterface $messageBus The message bus for dispatching messages.
+     */
     public function __construct(SendUploadNotificationCommand $sendUploadNotificationCommand, MessageBusInterface $messageBus)
     {
         $this->sendUploadNotificationCommand = $sendUploadNotificationCommand;
         $this->messageBus = $messageBus;
     }
 
+    /**
+     * Handles the file upload request.
+     *
+     * @param Request $request The HTTP request object containing the uploaded files and parameters.
+     *
+     * @return JsonResponse A JSON response indicating the status of the upload operation.
+     */
     #[Route('/dependencyUploadFile', name: 'app_dependency')]
     public function index(Request $request): JsonResponse
     {
