@@ -7,38 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UploadStatusRepository::class)]
 class UploadStatus
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id] // Primary key
+    #[ORM\GeneratedValue] // Auto-increment
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null; // Make sure to initialize to null
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $repositoryName;
+    #[ORM\Column(type: 'string')]
+    private string $repositoryName;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $commitName;
+    #[ORM\Column(type: 'string')]
+    private string $commitName;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $totalFiles;
+    #[ORM\Column(type: 'integer')]
+    private int $totalFiles;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $uploadedFiles = 0;
+    #[ORM\Column(type: 'integer')]
+    private int $uploadedFiles = 0;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $completed = false;
-
+    #[ORM\Column(type: 'boolean')]
+    private bool $completed = false;
+    
     // Getters and setters
 
     public function getId(): ?int
