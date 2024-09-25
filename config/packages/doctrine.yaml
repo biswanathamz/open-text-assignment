@@ -1,8 +1,8 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        url: mysql://root:docker@db:3306/app
         driver: 'pdo_mysql'
-        charset: utf8mb4
+        # charset: utf8mb4
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

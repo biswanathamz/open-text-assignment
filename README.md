@@ -26,3 +26,12 @@ and running before, or the command will fail) in root folder.
 
 We recommend that you always use the PHP container's shell whenever you execute PHP, such as when installing and 
 requiring new composer dependencies.
+
+### Need To Create The DB 
+docker exec -it backend-home-task-db-1 /bin/sh
+mysql -u root -p
+CREATE DATABASE app;
+
+### Migrate the tables 
+php bin/console make:migration
+php bin/console make:migration migrate

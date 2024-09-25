@@ -3,7 +3,7 @@ framework:
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         # failure_transport: failed
         # transports:
-        #     async:
+        #     async: 
         #         dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
         #         options:
         #             exchange:
@@ -12,8 +12,13 @@ framework:
         #             queues:
         #                 default: ~
         # routing:
-            # Route your messages to the transports
-            # 'App\Message\FileUploadMessage': async
+        #     # Route your messages to the transports
+        #     'App\Message\FileUploadMessage': async
+        transports:
+            sync: 'sync://'
+
+        routing:
+            App\Message\FileUploadMessage: sync
 
 # when@test:
 #    framework:

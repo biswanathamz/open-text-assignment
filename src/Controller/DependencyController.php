@@ -78,6 +78,8 @@ class DependencyController extends AbstractController
             $uploadedFiles = [$uploadedFiles]; 
         }
 
+        $totalFiles = count($uploadedFiles);
+
         // Validation: Check if all uploaded files are of .lock type
         foreach ($uploadedFiles as $uploadedFile) {
             if (pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_EXTENSION) !== 'lock') {
@@ -94,7 +96,8 @@ class DependencyController extends AbstractController
                     $uploadedFile->getRealPath(),
                     $uploadedFile->getClientOriginalName(),
                     $repositoryName,
-                    $commitName
+                    $commitName,
+                    $totalFiles
                 );
                 $this->messageBus->dispatch($message);
             }

@@ -29,6 +29,8 @@ class SendUploadNotificationCommand extends Command
     protected string $message;
     protected string $successUploadMessage;
     protected string $failedUploadMessage;
+    protected string $fileUploadCompleteFlagMessage;
+    protected string $ruleLinksMessage;
 
     /**
      * SendUploadNotificationCommand constructor.
@@ -42,6 +44,8 @@ class SendUploadNotificationCommand extends Command
         $this->message = "File Upload : Inprogress";
         $this->successUploadMessage = "File uploaded successfully ! File Name : ";
         $this->failedUploadMessage = "File uploaded failed ! File Name : ";
+        $this->fileUploadCompleteFlagMessage = "All files are uploaded successfully!";
+        $this->ruleLinksMessage = "Vulnerabilities Found ! PFB the links : ";
 
         parent::__construct(); 
     }
@@ -53,7 +57,9 @@ class SendUploadNotificationCommand extends Command
     {
         $this
         ->addArgument('successFile', InputArgument::OPTIONAL, 'Your name')
-        ->addArgument('failedFile', InputArgument::OPTIONAL, 'Your name');
+        ->addArgument('failedFile', InputArgument::OPTIONAL, 'Your name')
+        ->addArgument('ruleLinks', InputArgument::OPTIONAL, 'Your name')
+        ->addArgument('fileUploadCompleteFlag', InputArgument::OPTIONAL, 'Your name');
     }
 
     /**
@@ -70,12 +76,19 @@ class SendUploadNotificationCommand extends Command
 
         $successFile = $input->getArgument('successFile');
         $failedFile = $input->getArgument('failedFile');
+        $fileUploadCompleteFlag = $input->getArgument('fileUploadCompleteFlag');
+        $ruleLinks = $input->getArgument('ruleLinks');
+
         $message = "";
         
         if($successFile){
             $message = $this->successUploadMessage.$successFile;
         }elseif($failedFile){
             $message = $this->failedUploadMessage.$failedFile;
+        }elseif($fileUploadCompleteFlag){
+            $message = $this->fileUploadCompleteFlagMessage;
+        }elseif($ruleLinks){
+            $message = $this->ruleLinksMessage.json_encode($ruleLinks);
         }else{
             $message = $this->message;
         }

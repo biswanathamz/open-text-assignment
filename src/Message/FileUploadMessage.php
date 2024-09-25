@@ -13,6 +13,7 @@ class FileUploadMessage
     private string $fileName;
     private string $repositoryName;
     private string $commitName;
+    private int $totalNumberOfFiles;
 
     /**
      * FileUploadMessage constructor.
@@ -22,12 +23,13 @@ class FileUploadMessage
      * @param string $repositoryName The name of the repository associated with the upload.
      * @param string $commitName The name of the commit associated with the upload.
      */
-    public function __construct(string $filePath, string $fileName, string $repositoryName, string $commitName)
+    public function __construct(string $filePath, string $fileName, string $repositoryName, string $commitName, int $totalNumberOfFiles)
     {
         $this->filePath = $filePath;
         $this->fileName = $fileName;
         $this->repositoryName = $repositoryName;
         $this->commitName = $commitName;
+        $this->totalNumberOfFiles = $totalNumberOfFiles;
     }
 
     /**
@@ -68,5 +70,15 @@ class FileUploadMessage
     public function getCommitName(): string
     {
         return $this->commitName;
+    }
+
+    /**
+     * Get the Total Number of files.
+     *
+     * @return string The name of the commit associated with the upload.
+     */
+    public function getTotalNumberOfFiles(): int
+    {
+        return $this->totalNumberOfFiles;
     }
 }

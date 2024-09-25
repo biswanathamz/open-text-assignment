@@ -152,4 +152,34 @@ class DebrickedApiService
             ];
         }
     }
+
+    public function getUploadStatus(int $ciUploadId): array
+    {
+        $queryParameters = [
+            'ciUploadId' => $ciUploadId
+        ];
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->authorizationToken,
+            'Accept' => '*/*',
+        ];
+
+        try {
+            $response = $this->httpClient->request('GET', $this->apiUrl."/1.0/open/ci/upload/status", [
+                'headers' => $headers,
+                'query' => $queryParameters,
+            ]);
+
+            return [
+                'status' => $response->getStatusCode(),
+                'data' => $response->toArray(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
 }
